@@ -1,0 +1,28 @@
+{
+    "name": "easyblue/doctrine-extensions-bundle",
+    "type": "symfony-bundle",
+    "description": "TODO",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brice Julia",
+            "email": "brice.julia1@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "symfony/framework-bundle": "^4.0|^5.0",
+        "doctrine/common": "^2.11",
+        "ext-intl": "*"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^4.4",
+        "symfony/debug-pack": "^1.0",
+        "doctrine/orm": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Easyblue\\DoctrineExtensionsBundle\\": ""
+        }
+    }
+}

@@ -1,0 +1,44 @@
+parameters:
+    easyblue_doctrine_extensions.reflection.class_analyzer.class: Easyblue\DoctrineExtensionsBundle\Reflection\ClassAnalyzer
+    easyblue_doctrine_extensions.softdeletable_subscriber.class: Easyblue\DoctrineExtensionsBundle\EventSubscriber\SoftDeletableSubscriber
+    easyblue_doctrine_extensions.softdeletable_subscriber.softdeletable_trait: Easyblue\DoctrineExtensionsBundle\Traits\SoftDeletableTrait
+    easyblue_doctrine_extensions.sluggable_subscriber.class: Easyblue\DoctrineExtensionsBundle\EventSubscriber\SluggableSubscriber
+    easyblue_doctrine_extensions.sluggable_subscriber.sluggable_trait: Easyblue\DoctrineExtensionsBundle\Traits\SluggableTrait
+    easyblue_doctrine_extensions.timestampable_subscriber.class: Easyblue\DoctrineExtensionsBundle\EventSubscriber\TimestampableSubscriber
+    easyblue_doctrine_extensions.timestampable_subscriber.timestampable_trait: Easyblue\DoctrineExtensionsBundle\Traits\TimestampableTrait
+    easyblue_doctrine_extensions.timestampable_subscriber.db_field_type: datetime
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    easyblue_doctrine_extensions.reflection.class_analyzer:
+        class:   "%easyblue_doctrine_extensions.reflection.class_analyzer.class%"
+
+    easyblue_doctrine_extensions.softdeletable_subscriber:
+        class: '%easyblue_doctrine_extensions.softdeletable_subscriber.class%'
+        arguments:
+            - "@easyblue_doctrine_extensions.reflection.class_analyzer"
+            - "%easyblue_doctrine_extensions.softdeletable_subscriber.softdeletable_trait%"
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    easyblue_doctrine_extensions.timestampable_subscriber:
+        class:   "%easyblue_doctrine_extensions.timestampable_subscriber.class%"
+        arguments:
+            - "@easyblue_doctrine_extensions.reflection.class_analyzer"
+            - "%easyblue_doctrine_extensions.timestampable_subscriber.timestampable_trait%"
+            - "%easyblue_doctrine_extensions.timestampable_subscriber.db_field_type%"
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    easyblue_doctrine_extensions.sluggable_subscriber:
+        class: "%easyblue_doctrine_extensions.sluggable_subscriber.class%"
+        public: false
+        arguments:
+            - "@easyblue_doctrine_extensions.reflection.class_analyzer"
+            - "%easyblue_doctrine_extensions.sluggable_subscriber.sluggable_trait%"
+        tags:
+            - { name: doctrine.event_subscriber }
